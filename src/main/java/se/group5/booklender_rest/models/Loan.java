@@ -3,7 +3,9 @@ package se.group5.booklender_rest.models;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
+import java.util.Optional;
 
 @Entity
 public class Loan {
@@ -64,7 +66,13 @@ public class Loan {
     }
 
     public BigDecimal getFine(){
-        return null;
+        Period period = Period.between(loanDate.plusDays(book.getMaxLoanDays()), LocalDate.now());
+        int numOfDaysOverdue = period.getDays();
+        BigDecimal fine = BigDecimal.ZERO;
+        if (numOfDaysOverdue > 0){
+            fine = BigDecimal.valueOf(numOfDaysOverdue * book.getFinePerDay().longValue());
+        }
+        return fine;
     }
 
     public void setLoanDate(LocalDate loanDate) {

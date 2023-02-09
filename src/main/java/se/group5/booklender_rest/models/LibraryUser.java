@@ -27,6 +27,11 @@ public class LibraryUser {
         this.email = email;
     }
 
+    public LibraryUser(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
     public int getUserId() {
         return userId;
     }
