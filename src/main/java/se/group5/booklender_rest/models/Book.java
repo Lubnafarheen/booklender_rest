@@ -1,10 +1,15 @@
 package se.group5.booklender_rest.models;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Entity
 public class Book {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false)
     private int BookId;
 
     private String title;

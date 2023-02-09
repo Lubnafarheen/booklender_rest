@@ -1,15 +1,24 @@
 package se.group5.booklender_rest.models;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@Entity
 public class Loan {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false)
     private long loanId;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
+    @JoinColumn(name = "loan_user_id")
     private LibraryUser loanTaker;
 
+    @ManyToOne
+    @JoinColumn(name = "book_id")
     private Book book;
 
     private LocalDate loanDate;
