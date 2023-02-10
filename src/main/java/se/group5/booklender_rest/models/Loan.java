@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
-import java.util.Optional;
+
 
 @Entity
 public class Loan {
@@ -19,7 +19,7 @@ public class Loan {
     @JoinColumn(name = "loan_user_id")
     private LibraryUser loanTaker;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
     @JoinColumn(name = "book_id")
     private Book book;
 
@@ -54,7 +54,15 @@ public class Loan {
     }
 
     public void setBook(Book book) {
+        if (book == null)throw new IllegalArgumentException("Book was null");
+        if (!book.isAvailable())throw new IllegalArgumentException("Book is not available");
+        book.setAvailable(true);
         this.book = book;
+    }
+
+    public void returnBook(Book book){
+        this.book.setAvailable(true);
+        this.concluded = true;
     }
 
     public LocalDate getLoanDate() {
@@ -62,7 +70,8 @@ public class Loan {
     }
 
     public boolean isOverdue(){
-        return true;
+        LocalDate dueDate = loanDate.plusDays(book.getMaxLoanDays());
+        return LocalDate.now().isAfter(dueDate);
     }
 
     public BigDecimal getFine(){
@@ -87,8 +96,16 @@ public class Loan {
         this.concluded = concluded;
     }
 
-    public boolean extendLoan (boolean days){
-        return false;
+    public boolean extendLoan (int days){
+        if (book.isReserved()||  isOverdue()) return false;
+        if ((days > book.getMaxLoanDays())) return false;
+        setLoanDate(getLoanDate().plusDays(days));
+        return true;
+    }
+
+    public int daysLeftToReturnBook(){
+        Period period =Period.between(loanDate.plusDays(book.getMaxLoanDays()), LocalDate.now());
+        return period.getDays();
     }
 
     @Override
