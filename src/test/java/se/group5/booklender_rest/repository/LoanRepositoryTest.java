@@ -56,6 +56,29 @@ public class LoanRepositoryTest {
         assertEquals(expected, actual.get());
     }
 
+    @Test
+    public void test_findByLoanTakerUserId(){
+        Optional<Loan> result = testObject.findByLoanTakerUserId(createdLoan.getLoanTaker().getUserId());
+        assertTrue(result.isPresent());
+        Loan expected = createdLoan;
+        assertEquals(expected, result.get());
+    }
+
+    /*@Test
+    public void findByBook_BookId() {
+        Loan actual = testObject.findByBookId(createdLoan.getBook().getBookId());
+        Loan expected = createdLoan;
+        assertEquals(expected, actual);
+    }
+*/
+
+    @Test
+    public void findByConcluded(){
+        Loan result = testObject.findByConcluded(createdLoan.isConcluded());
+        assertEquals(createdLoan, result);
+
+    }
+
 
 
 

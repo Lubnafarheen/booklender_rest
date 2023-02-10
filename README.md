@@ -1,7 +1,7 @@
 # BOOK LENDER GROUP WORKSHOP
 
-- [x] Part 1
-- [ ] Part 2
+- [X] Part 1
+- [X] Part 2
 
 
 
