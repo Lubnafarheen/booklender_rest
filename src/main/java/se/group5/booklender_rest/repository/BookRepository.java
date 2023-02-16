@@ -11,8 +11,8 @@ public interface BookRepository extends CrudRepository<Book, Integer> {
 
     List<Book> findBookByTitle(String title);
 
-    Boolean existsByAvailable(boolean book);
+    List<Book> existsByAvailable(boolean book);
 
-    Book findByReserved(boolean book);
+    List<Book> findByReserved(boolean book);
 
 }
