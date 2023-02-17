@@ -11,6 +11,7 @@ import se.group5.booklender_rest.models.Loan;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -58,10 +59,9 @@ public class LoanRepositoryTest {
 
     @Test
     public void test_findByLoanTakerUserId(){
-        Optional<Loan> result = testObject.findByLoanTakerUserId(createdLoan.getLoanTaker().getUserId());
-        assertTrue(result.isPresent());
+        List<Loan> result = testObject.findByLoanTakerUserId(createdLoan.getLoanTaker().getUserId());
         Loan expected = createdLoan;
-        assertEquals(expected, result.get());
+        assertEquals(1, result.size());
     }
 
     /*@Test

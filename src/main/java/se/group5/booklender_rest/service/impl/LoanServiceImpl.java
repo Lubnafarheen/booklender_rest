@@ -12,6 +12,7 @@ import se.group5.booklender_rest.service.LoanService;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class LoanServiceImpl implements LoanService {
@@ -31,23 +32,19 @@ public class LoanServiceImpl implements LoanService {
         return null;
     }
 
-   /* @Override
+    @Override
     public List<LoanDto> findByBookId(Integer bookId) {
         if (bookId == null) throw new IllegalArgumentException("Book Id is null");
-        List<Loan> loanList = loanRepository.findByBookId(bookId);
+        List<Loan> loanList = loanRepository.findAllByBookBookId(bookId);
         return modelMapper.map(loanList, new TypeToken<List<LoanDto>>() {
         }.getType());
-    }*/
+    }
 
     @Override
     public List<LoanDto> findByUserId(Integer userId) {
         if (userId == null) throw new IllegalArgumentException("User Id is null");
-        Optional<Loan> result = loanRepository.findByLoanTakerUserId(userId);
-        if (result.isPresent()) {
-            Loan loan = result.get();
-            //todo
-        }
-        return null;
+        List<Loan> result = loanRepository.findByLoanTakerUserId(userId);
+        return result.stream().map(r ->modelMapper.map(r, LoanDto.class)).collect(Collectors.toList());
     }
 
     @Override
