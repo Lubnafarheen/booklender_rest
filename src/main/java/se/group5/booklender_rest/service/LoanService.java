@@ -8,7 +8,7 @@ public interface LoanService {
 
     LoanDto findById(Long loanId);
 
-    //List<LoanDto> findByBookId(Integer bookId);
+    List<LoanDto> findByBookId(Integer bookId);
 
     List<LoanDto> findByUserId(Integer userId);
 

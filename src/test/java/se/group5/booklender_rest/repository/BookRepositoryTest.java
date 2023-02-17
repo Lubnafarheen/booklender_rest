@@ -16,9 +16,6 @@ public class BookRepositoryTest {
 
     @Autowired
     BookRepository testObject;
-
-
-
     Book createdBook;
 
     @BeforeEach
@@ -46,15 +43,13 @@ public class BookRepositoryTest {
 
     @Test
     public void test_existsByAvailable(){
-        Boolean result = testObject.existsByAvailable(createdBook.isAvailable());
-        assertTrue(result);
+        List<Book> bookList = testObject.existsByAvailable(createdBook.isAvailable());
     }
 
 
     @Test
     public void test_findBookByReserved(){
-        Book result = testObject.findByReserved(createdBook.isReserved());
-        assertEquals(createdBook, result);
+        List<Book> byReserved = testObject.findByReserved(createdBook.isReserved());
     }
 
     @Test

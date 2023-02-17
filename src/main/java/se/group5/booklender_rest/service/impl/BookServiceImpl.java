@@ -36,6 +36,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> findByTitle(String title) {
+        if (title == null) throw new IllegalArgumentException("Title was null");
         List<Book> bookByTitle = bookRepository.findBookByTitle(title);
         return modelMapper.map(bookByTitle, new TypeToken<List<BookDto>>() {
         }.getType());
