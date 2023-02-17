@@ -10,7 +10,7 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false)
-    private int BookId;
+    private int bookId;
 
     private String title;
 
@@ -35,7 +35,7 @@ public class Book {
     }
 
     public int getBookId() {
-        return BookId;
+        return bookId;
     }
 
 
@@ -92,18 +92,18 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return BookId == book.BookId && available == book.available && reserved == book.reserved && maxLoanDays == book.maxLoanDays && Objects.equals(title, book.title) && Objects.equals(finePerDay, book.finePerDay) && Objects.equals(description, book.description);
+        return bookId == book.bookId && available == book.available && reserved == book.reserved && maxLoanDays == book.maxLoanDays && Objects.equals(title, book.title) && Objects.equals(finePerDay, book.finePerDay) && Objects.equals(description, book.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(BookId, title, available, reserved, maxLoanDays, finePerDay, description);
+        return Objects.hash(bookId, title, available, reserved, maxLoanDays, finePerDay, description);
     }
 
     @Override
     public String toString() {
         return "Book{" +
-                "BookId=" + BookId +
+                "BookId=" + bookId +
                 ", title='" + title + '\'' +
                 ", available=" + available +
                 ", reserved=" + reserved +
